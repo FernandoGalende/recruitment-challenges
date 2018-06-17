@@ -1,5 +1,5 @@
 const fs = require("fs");
-const normalize = require("./Normailze");
+const normalize = require("./Normalize/Normailze");
 
 let readFraudLines = filePath => {
   let orders = [];
