@@ -4,16 +4,7 @@ const normalize = require("./Normalize/Normailze");
 let readFraudLines = filePath => {
   let orders = [];
   let fileContent;
-  const keys = [
-    'orderId',
-    'dealId',
-    'email',
-    'street',
-    'city',
-    'state',
-    'zipCode',
-    'creditCard'
-  ];
+  const keys = [ 'orderId', 'dealId', 'email', 'street', 'city', 'state', 'zipCode', 'creditCard' ];
 
   try {
     fileContent = fs.readFileSync(filePath, "utf8");
@@ -43,13 +34,8 @@ let readFraudLines = filePath => {
   for (let line of lines) {
     let items = line.split(",");
     let myOrder = new Order(items).format();
-    myOrder.email,
-      myOrder.street,
-      (myOrder.state = normalize.normalize(
-        myOrder.email,
-        myOrder.street,
-        myOrder.state
-      ));
+    myOrder.email, myOrder.street,myOrder.state = 
+        normalize.normalize( myOrder.email, myOrder.street, myOrder.state );
     orders.push(myOrder);
   }
 
