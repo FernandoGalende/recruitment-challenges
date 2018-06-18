@@ -2,7 +2,7 @@ const fs = require("fs");
 const normalize = require("./Normalize/Normailze");
 const format = require("./Format");
 
-let readFraudLines = filePath => {
+const readFraudLines = filePath => {
   let orders = [];
   let fileContent;
 
@@ -18,7 +18,7 @@ let readFraudLines = filePath => {
       this.creditCard = items[7];
     }
   }
-
+  
   try {
     fileContent = fs.readFileSync(filePath, "utf8");
   } catch (err) {

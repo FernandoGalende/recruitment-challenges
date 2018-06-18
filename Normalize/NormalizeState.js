@@ -1,8 +1,8 @@
-const dictionary = require("./dictionary");
+const citiesDictionary = require("./CitiesDictionary");
 
 const normalizeState = (state, street) => {
-  for (let i = 0; i < dictionary.length; i++) {
-    state = street.replace(dictionary[i][0], dictionary[i][1]);
+  for (let i = 0; i < citiesDictionary.length; i++) {
+    state = street.replace(citiesDictionary[i][0], citiesDictionary[i][1]);
   }
   return state;
 };

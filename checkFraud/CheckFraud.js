@@ -1,5 +1,5 @@
-const One = require('./FraudRules/ruleOne')
-const Two = require('./FraudRules/ruleTwo')
+const ruleOne = require('./FraudRules/checkEmailAndCard')
+const ruleTwo = require('./FraudRules/checkStateCityAndCard')
 
 let checkFraud = orders => {
   let arrFraudList = [];
@@ -7,7 +7,7 @@ let checkFraud = orders => {
   for (let i = 0; i < orders.length; i++) {
     current = orders[i];
     for (let j = i + 1; j < orders.length; j++) {
-      if (One.ruleOne(current, orders[j]) && Two.ruleTwo(current, orders[j])) {
+      if (ruleOne.checkEmailAndCard(current, orders[j]) && ruleTwo.checkStateCityAndCard(current, orders[j])) {
         arrFraudList.push({ isFraudulent: true, orderId: orders[j].orderId })
       }       
     }
