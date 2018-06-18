@@ -1,4 +1,4 @@
-const FraudRadar = require('./FraudRadar')
+const FraudRadar = require('./Chalenge_solution/FraudRadar')
 const path = require('path')
 const assert = require('assert')
 
