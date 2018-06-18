@@ -1,10 +1,23 @@
 const fs = require("fs");
 const normalize = require("./Normalize/Normailze");
+const format = require("./Format");
 
 let readFraudLines = filePath => {
   let orders = [];
   let fileContent;
-  const keys = [ 'orderId', 'dealId', 'email', 'street', 'city', 'state', 'zipCode', 'creditCard' ];
+
+  class Order {
+    constructor(items) {
+      this.orderId = items[0];
+      this.dealId = items[1];
+      this.email = items[2];
+      this.street = items[3];
+      this.city = items[4];
+      this.state = items[5];
+      this.zipCode = items[6];
+      this.creditCard = items[7];
+    }
+  }
 
   try {
     fileContent = fs.readFileSync(filePath, "utf8");
@@ -12,30 +25,14 @@ let readFraudLines = filePath => {
     console.log(err);
   }
 
-  class Order {
-    constructor(items) {
-      for (let i = 0; i < keys.length; i++) {
-        this[keys[i]] = items[i];
-      }
-    }
-
-    format() {
-      for (let i = 0; i <= keys.indexOf("dealId"); i++) {
-        this[keys[i]] = Number(this[keys[i]]);
-      }
-      for (let j = keys.indexOf("email"); j <= keys.indexOf("state"); j++) {
-        this[keys[j]] = this[keys[j]].toLowerCase();
-      }
-      return this;
-    }
-  }
-
   let lines = fileContent.split("\n");
+
   for (let line of lines) {
-    let items = line.split(",");
-    let myOrder = new Order(items).format();
-    myOrder.email, myOrder.street,myOrder.state = 
-        normalize.normalize( myOrder.email, myOrder.street, myOrder.state );
+    let myOrder = new Order(line.split(","));
+    
+    myOrder = format.format(myOrder);    
+    myOrder = normalize.normalize(myOrder);
+
     orders.push(myOrder);
   }
 
